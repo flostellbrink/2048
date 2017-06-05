@@ -27,10 +27,10 @@ namespace _2048
 				random = Runner.TestStrategy(random),
 				high1Step = Runner.TestStrategy(high1Step),
 				empty1Step = Runner.TestStrategy(empty1Step),
-				highMultiStep = Runner.TestStrategy(highMultiStep, 1),
-				emptyMultiStep = Runner.TestStrategy(emptyMultiStep, 1),
-				highHeuristicPruner = Runner.TestStrategy(highHeuristicPruner, 1),
-				emptyHeuristicPruner = Runner.TestStrategy(emptyHeuristicPruner, 1),
+				highMultiStep = Runner.TestStrategy(highMultiStep, 4),
+				emptyMultiStep = Runner.TestStrategy(emptyMultiStep, 4),
+				highHeuristicPruner = Runner.TestStrategy(highHeuristicPruner, 4),
+				emptyHeuristicPruner = Runner.TestStrategy(emptyHeuristicPruner, 4),
 			};
 			Console.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));
 		}
