@@ -14,10 +14,10 @@ namespace _2048
 			var random = new RandomStrategy();
 			var high1Step = new OneStepEvaluatorStrategy(new HighScoreEvaluator());
 			var empty1Step = new OneStepEvaluatorStrategy(new HighScoreEvaluator());
-			var high10Step = new MaxAverageStrategy(new HighScoreEvaluator(), 4);
-			var empty10Step = new MaxAverageStrategy(new HighScoreEvaluator(), 4);
+			var highMultiStep = new MaxAverageStrategy(new HighScoreEvaluator(), 4);
+			var emptyMultiStep = new MaxAverageStrategy(new HighScoreEvaluator(), 4);
 
-			Demo.RunStrategy(high10Step);
+			Demo.RunStrategy(highMultiStep);
 
 			var result = new
 			{
@@ -25,8 +25,8 @@ namespace _2048
 				random = Runner.TestStrategy(random),
 				high1Step = Runner.TestStrategy(high1Step),
 				empty1Step = Runner.TestStrategy(empty1Step),
-				high10Step = Runner.TestStrategy(high10Step, 5),
-				empty10Step = Runner.TestStrategy(empty10Step, 5)
+				highMultiStep = Runner.TestStrategy(highMultiStep, 5),
+				emptyMultiStep = Runner.TestStrategy(emptyMultiStep, 5)
 			};
 			Console.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));
 			Console.ReadLine();
