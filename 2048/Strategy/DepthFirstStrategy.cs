@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading;
 using MoreLinq;
 using _2048.Core;
@@ -44,7 +45,7 @@ namespace _2048.Strategy
 
 		private void RunMoves(Board board, IDictionary<int, Direction> results)
 		{
-			for (var depth = 2; ; depth++)
+			foreach (var depth in Enumerable.Range(2, int.MaxValue - 2).AsParallel())
 			{
 				results.Add(depth, GetMove(board, depth));
 			}
