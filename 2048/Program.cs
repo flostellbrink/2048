@@ -6,9 +6,9 @@ using _2048.Strategy;
 
 namespace _2048
 {
-	class Program
+	internal class Program
 	{
-		static void Main(string[] args)
+		private static void Main(string[] args)
 		{
 			var manual = new ManualStrategy();
 			var random = new RandomStrategy();

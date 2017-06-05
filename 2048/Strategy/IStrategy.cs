@@ -2,7 +2,7 @@
 
 namespace _2048
 {
-	interface IStrategy
+	internal interface IStrategy
 	{
 		Direction GetMove(Board board);
 	}

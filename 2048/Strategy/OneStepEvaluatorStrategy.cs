@@ -8,7 +8,7 @@ namespace _2048.Strategy
 	/// <summary>
 	/// Rank next steps by the resulting score according to an <see cref="IEvaluator"/>
 	/// </summary>
-	class OneStepEvaluatorStrategy : IStrategy
+	internal class OneStepEvaluatorStrategy : IStrategy
 	{
 		private readonly IEvaluator _evaluator;
 

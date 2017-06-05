@@ -2,7 +2,7 @@
 
 namespace _2048.ScoreFunction
 {
-	interface IEvaluator
+	internal interface IEvaluator
 	{
 		double GetScore(Board board);
 	}

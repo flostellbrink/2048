@@ -9,7 +9,7 @@ namespace _2048.Strategy
 	/// <summary>
 	/// Look at average for random steps, maximize non random, don't purge
 	/// </summary>
-	class MaxAverageStrategy : IStrategy
+	internal class MaxAverageStrategy : IStrategy
 	{
 		private readonly IEvaluator _evaluator;
 

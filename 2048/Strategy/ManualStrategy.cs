@@ -9,7 +9,7 @@ namespace _2048.Strategy
 	/// </summary>
 	internal class ManualStrategy : IStrategy
 	{
-		static readonly Dictionary<char, Direction> Keymap = new Dictionary<char, Direction>
+		private static readonly Dictionary<char, Direction> Keymap = new Dictionary<char, Direction>
 		{
 			{'w', Direction.Up},
 			{'s', Direction.Down},

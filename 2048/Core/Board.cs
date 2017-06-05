@@ -10,7 +10,7 @@ namespace _2048.Core
 	 * 4 5 6 7
 	 * 8 9 A B
 	 * C D E F */
-	class Board
+	internal class Board
 	{
 		private Board(int[] fields, int score = 0)
 		{

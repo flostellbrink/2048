@@ -2,7 +2,7 @@
 
 namespace _2048.ScoreFunction
 {
-	class HighScoreEvaluator : IEvaluator
+	internal class HighScoreEvaluator : IEvaluator
 	{
 		public double GetScore(Board board)
 		{

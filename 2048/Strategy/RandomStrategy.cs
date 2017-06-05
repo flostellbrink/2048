@@ -5,9 +5,9 @@ using _2048.Core;
 
 namespace _2048
 {
-	class RandomStrategy : IStrategy
+	internal class RandomStrategy : IStrategy
 	{
-		static Random random = new Random();
+		private static Random random = new Random();
 
 		public Direction GetMove(Board board)
 		{
