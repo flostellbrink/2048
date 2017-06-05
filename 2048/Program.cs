@@ -13,9 +13,11 @@ namespace _2048
 			var manual = new ManualStrategy();
 			var random = new RandomStrategy();
 			var high1Step = new OneStepEvaluatorStrategy(new HighScoreEvaluator());
-			var empty1Step = new OneStepEvaluatorStrategy(new HighScoreEvaluator());
+			var empty1Step = new OneStepEvaluatorStrategy(new EmptyFieldEvaluator());
 			var highMultiStep = new MaxAverageStrategy(new HighScoreEvaluator(), TimeSpan.FromMilliseconds(100));
-			var emptyMultiStep = new MaxAverageStrategy(new HighScoreEvaluator(), TimeSpan.FromMilliseconds(100));
+			var emptyMultiStep = new MaxAverageStrategy(new EmptyFieldEvaluator(), TimeSpan.FromMilliseconds(100));
+			var highHeuristicPruner = new HeuristicPruneMaxAverageStrategy(new HighScoreEvaluator(), TimeSpan.FromMilliseconds(100), 4);
+			var emptyHeuristicPruner = new HeuristicPruneMaxAverageStrategy(new EmptyFieldEvaluator(), TimeSpan.FromMilliseconds(100), 4);
 
 			//Demo.RunStrategy(highMultiStep);
 
@@ -26,10 +28,11 @@ namespace _2048
 				high1Step = Runner.TestStrategy(high1Step),
 				empty1Step = Runner.TestStrategy(empty1Step),
 				highMultiStep = Runner.TestStrategy(highMultiStep, 1),
-				emptyMultiStep = Runner.TestStrategy(emptyMultiStep, 1)
+				emptyMultiStep = Runner.TestStrategy(emptyMultiStep, 1),
+				highHeuristicPruner = Runner.TestStrategy(highHeuristicPruner, 1),
+				emptyHeuristicPruner = Runner.TestStrategy(emptyHeuristicPruner, 1),
 			};
 			Console.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));
-			Console.ReadLine();
 		}
 	}
 }
