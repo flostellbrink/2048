@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using _2048.Strategy;
 
 namespace _2048.Core
 {

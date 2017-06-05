@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Linq;
 using _2048.Core;
 
-namespace _2048
+namespace _2048.Strategy
 {
 	internal class RandomStrategy : IStrategy
 	{
