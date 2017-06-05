@@ -10,24 +10,28 @@ namespace _2048.Core
 	{
 		private static Board TestStrategyOnce(IStrategy strategy)
 		{
-			(var running, var board) = Board.Empty.TrySpawn();
-			while (running)
+			Console.Write(".");
+			var board = Board.Empty.Spawn();
+			while (true)
 			{
 #if DEBUG
 				Console.WriteLine(board);
 #endif
 				if (!board.ValidShifts.Any()) break;
-				board = board.Shift(strategy.GetMove(board));
-				(running, board) = board.TrySpawn();
+				board = board.Shift(strategy.GetMove(board), true);
+				if(!board.ValidSpawns.Any()) break;
+				board = board.Spawn(true);
 			}
 			return board;
 		}
 
 		public static Score TestStrategy(IStrategy strategy, int runs = 2048)
 		{
+			Console.Write($"Testing {strategy}");
 			var results = Enumerable.Range(0, runs).Select(_ => TestStrategyOnce(strategy)).ToArray();
 			var scores = results.Select(b => b.Score).ToArray();
 			var maxTiles = results.Select(b => b.Fields.Max()).ToArray();
+			Console.WriteLine("");
 			return new Score(scores.Max(), scores.Average(), scores.Min(), maxTiles.Max(), maxTiles.Average(), maxTiles.Min());
 		}
 

@@ -57,6 +57,7 @@
     <Compile Include="ScoreFunction\EmptyFieldEvaluator.cs" />
     <Compile Include="ScoreFunction\HighScoreEvaluator.cs" />
     <Compile Include="ScoreFunction\IEvaluator.cs" />
+    <Compile Include="Strategy\DepthFirstStrategy.cs" />
     <Compile Include="Strategy\IStrategy.cs" />
     <Compile Include="Strategy\ManualStrategy.cs" />
     <Compile Include="Program.cs" />

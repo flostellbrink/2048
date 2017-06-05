@@ -40,10 +40,12 @@ namespace _2048.Core
 		/// </summary>
 		/// <param name="direction">Direction to shift board into</param>
 		/// <returns>Board state after moving</returns>
-		public Board Shift(Direction direction)
+		public Board Shift(Direction direction, bool final = false)
 		{
 			Debug.Assert(ValidShifts.ContainsKey(direction), "Invalid move");
-			return ValidShifts[direction];
+			var result = ValidShifts[direction];
+			if (final) _validShifts = null;
+			return result;
 		}
 
 		private IDictionary<Direction, Board> _validShifts;
@@ -62,7 +64,7 @@ namespace _2048.Core
 				var fields = (int[])Fields.Clone();
 				var score = Score;
 				foreach (var move in MoveSet[(int)direction])
-					ApplyMove(ref fields, move, ref score);
+					Shift(ref fields, move, ref score);
 				if(!fields.SequenceEqual(Fields))
 					result.Add(direction, new Board(fields, score));
 			}
@@ -75,7 +77,7 @@ namespace _2048.Core
 		/// <param name="fields">Fields to manipulate</param>
 		/// <param name="move">Column of fields to move</param>
 		/// <param name="score">Score to increase in case of merge</param>
-		private static void ApplyMove(ref int[] fields, IReadOnlyList<int> move, ref int score)
+		private static void Shift(ref int[] fields, IReadOnlyList<int> move, ref int score)
 		{
 			// Iterate over potentially moving fields (starting from second)
 			for (var i = 1; i < FieldSize; i++)
@@ -139,11 +141,11 @@ namespace _2048.Core
 		/// Attempt to spawn a random tile on the board
 		/// </summary>
 		/// <returns>Tuple. First value indicates if spawning is possible, second value the board state after spawning</returns>
-		public (bool, Board) TrySpawn()
+		public Board Spawn(bool final = false)
 		{
-			return !ValidSpawns.Any() 
-				? (false, null) 
-				: (true, ValidSpawns[Random.Next(ValidSpawns.Count)].Item2);
+			var result = ValidSpawns[Random.Next(ValidSpawns.Count)].Item2;
+			if (final) _validSpawns = null;
+			return result;
 		}
 
 		public override string ToString()

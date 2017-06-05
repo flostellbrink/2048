@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.Linq;
 using MoreLinq;
 using _2048.Core;
@@ -9,22 +10,19 @@ namespace _2048.Strategy
 	/// <summary>
 	/// Look at average for random steps, maximize non random, don't purge
 	/// </summary>
-	internal class MaxAverageStrategy : IStrategy
+	internal class MaxAverageStrategy : DepthFirstStrategy
 	{
 		private readonly IEvaluator _evaluator;
 
-		private readonly int _depth;
-
-		public MaxAverageStrategy(IEvaluator evaluator, int depth)
+		public MaxAverageStrategy(IEvaluator evaluator, TimeSpan limit) : base(limit)
 		{
 			_evaluator = evaluator;
-			_depth = depth;
 		}
 
-		public Direction GetMove(Board board)
+		protected override Direction GetMove(Board board, int depth)
 		{
 			Debug.Assert(board.ValidShifts.Any(), "Invalid board state");
-			return board.ValidShifts.MaxBy(s => AverageSpawnValue(s.Value, _depth - 1)).Key;
+			return board.ValidShifts.MaxBy(s => AverageSpawnValue(s.Value, depth - 1)).Key;
 		}
 
 		private double BestShiftValue(Board board, int remainingDepth)
