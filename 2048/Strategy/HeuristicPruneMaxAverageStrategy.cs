@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading;
 using MoreLinq;
 using _2048.Core;
 using _2048.ScoreFunction;
@@ -25,14 +26,16 @@ namespace _2048.Strategy
 			_evaluateShiftsCount = evaluateShiftsCount;
 		}
 
-		protected override Direction GetMove(Board board, int depth)
+		protected override Direction GetMove(Board board, int depth, CancellationToken token)
 		{
 			Debug.Assert(board.ValidShifts.Any(), "Invalid board state");
-			return board.ValidShifts.MaxBy(s => AverageSpawnValue(s.Value, depth - 1)).Key;
+			return board.ValidShifts.MaxBy(s => AverageSpawnValue(s.Value, depth - 1, token)).Key;
 		}
 
-		private double BestShiftValue(Board board, int remainingDepth)
+		private double BestShiftValue(Board board, int remainingDepth, CancellationToken token)
 		{
+			if (token.IsCancellationRequested)
+				return 0;
 			if (!board.ValidShifts.Any())
 				return 0;
 			if (remainingDepth <= 0)
@@ -40,11 +43,13 @@ namespace _2048.Strategy
 			return board.ValidShifts
 				.OrderBy(s => _evaluator.GetScore(s.Value), OrderByDirection.Descending)
 				.Take(_evaluateShiftsCount)
-				.Select(s => AverageSpawnValue(s.Value, remainingDepth - 1)).Max();
+				.Select(s => AverageSpawnValue(s.Value, remainingDepth - 1, token)).Max();
 		}
 
-		private double AverageSpawnValue(Board board, int remainingDepth)
+		private double AverageSpawnValue(Board board, int remainingDepth, CancellationToken token)
 		{
+			if (token.IsCancellationRequested)
+				return 0;
 			if (!board.ValidSpawns.Any())
 				return 0;
 			if (remainingDepth <= 0)
@@ -52,7 +57,7 @@ namespace _2048.Strategy
 			var averageProbability = 1.0 / board.ValidSpawns.Count;
 			return board.ValidSpawns
 				.Where(s => s.Item1 > averageProbability)
-				.Sum(s => s.Item1 * BestShiftValue(s.Item2, remainingDepth - 1));
+				.Sum(s => s.Item1 * BestShiftValue(s.Item2, remainingDepth - 1, token));
 		}
 	}
 }
