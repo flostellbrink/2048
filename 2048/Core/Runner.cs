@@ -14,9 +14,6 @@ namespace _2048.Core
 			var board = Board.Empty.Spawn();
 			while (true)
 			{
-#if DEBUG
-				Console.WriteLine(board);
-#endif
 				if (!board.ValidShifts.Any()) break;
 				board = board.Shift(strategy.GetMove(board), true);
 				if(!board.ValidSpawns.Any()) break;
