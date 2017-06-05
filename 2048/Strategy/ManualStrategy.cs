@@ -20,7 +20,7 @@ namespace _2048.Strategy
 		public Direction GetMove(Board board)
 		{
 			while (true)
-				if (Keymap.TryGetValue(Console.ReadKey().KeyChar, out var direction) && board.ValidShifts.ContainsKey(direction))
+				if (Keymap.TryGetValue((char)Console.Read(), out var direction) && board.ValidShifts.ContainsKey(direction))
 					return direction;
 		}
 	}

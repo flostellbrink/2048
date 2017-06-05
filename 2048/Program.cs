@@ -19,8 +19,8 @@ namespace _2048
 			var highHeuristicPruner = new HeuristicPruneMaxAverageStrategy(new HighScoreEvaluator(), TimeSpan.FromMilliseconds(100), 4);
 			var emptyHeuristicPruner = new HeuristicPruneMaxAverageStrategy(new EmptyFieldEvaluator(), TimeSpan.FromMilliseconds(100), 4);
 
-			//Demo.RunStrategy(highMultiStep);
-
+			Demo.RunStrategy(highHeuristicPruner);
+			
 			var result = new
 			{
 				//manual = runner.TestStrategy(manual, 1),
