@@ -39,7 +39,8 @@ namespace _2048.Strategy
 				Thread.Sleep(remaining);
 
 			// Abort thread and return best result
-			outerThread.Abort();
+			// TODO abort thread using cancellation token
+			//outerThread.Abort();
 			return results.MaxBy(r => r.Key).Value;
 		}
 

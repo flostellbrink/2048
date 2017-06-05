@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Reflection;
 
 namespace _2048.Core
 {
@@ -16,7 +17,7 @@ namespace _2048.Core
 
 		internal static T[] GetValues<T>()
 		{
-			Debug.Assert(typeof(T).IsEnum);
+			Debug.Assert(typeof(T).GetTypeInfo().IsEnum);
 			if (_enumMap.TryGetValue(typeof(T), out var values))
 				return (T[]) values;
 			var newValues = Enum.GetValues(typeof(T)).Cast<T>().ToArray();
